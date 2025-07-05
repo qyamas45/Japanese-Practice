@@ -112,11 +112,16 @@ def userSelect_chars(user_input, dict, mode = 0):
 
             print('Row has been added!\n')
             return False
-        
-       
+    
     print('ERROR: Please select which row or type done to start.\n')
     return False
 
+#Function: checkDuplicatedSelection
+#Purpose: To check and see if the user has already selected the row
+#Function parameters: diction - dictionary of array of user mode selection
+#                     user_input - self explainatory
+#                     mode - hiragana/katakana mode selected
+#Return statement: Boolean Type
 def checkDuplicatedSelection(diction, user_input, mode = 0 ):
     mode_select = 'hiragana_mode'
     if mode == 2:
@@ -138,7 +143,12 @@ def display_chars(jap_dict = 0):
         print('{})\t'.format(i) + keys)
         i+=1
 
-
+def userSelect_amnt(user_input):
+    if user_input == '5' or user_input == '10' or user_input == '15' or user_input == '20':
+        return True
+    
+    print('ERROR: Please re-enter the amount of questions.\n')
+    return False
 def hiragana_mode():
     print('Selected Hiragana...')
     print('Enter which rows to be added along to the quiz!')
@@ -146,11 +156,21 @@ def hiragana_mode():
     display_chars(jap_hiragana_dict)
     user_input = 0
     flag = False
+    #whie loop until the user has typed 'done'
     while(not(flag)):
-        flag = False
         user_input = input('Select which Rows to be added to your study: ')
         if((userSelect_chars(user_input, jap_hiragana_dict, 1))):
             flag = True
+    print('\n')
+    #re-use the flag variable
+    flag = False
+    while(not(flag)):
+        print('Select the amount of questions.\n1)\t5\n2)\t10\n3)\t15\n4)\t20\n5)\tCustom')
+        user_input = input('')
+        if(userSelect_amnt(user_input)):
+            flag = True
+    
+    print('\n')
 
 
 def katakana_mode():
