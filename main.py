@@ -63,7 +63,7 @@ user_mode_select = {
 
     'katakana_mode' :[]
 }
-
+user_select_length = 0
 #FUNCTIONS
 #Function displayWelcomeScreen
 #Purpose:  A void function that will display a welcoming message
@@ -143,12 +143,52 @@ def display_chars(jap_dict = 0):
         print('{})\t'.format(i) + keys)
         i+=1
 
+#Function: userSelect_amnt
+#Purpose:  To check user-input whether they have typed values between 5 - 20 or custom
+#Function parameters:  user_input - a string datatype to check userinput
+#Return statement:  Boolean Type
 def userSelect_amnt(user_input):
-    if user_input == '5' or user_input == '10' or user_input == '15' or user_input == '20':
+    if user_input == '1' or user_input == '2' or user_input == '3' or user_input == '4':
         return True
     
     print('ERROR: Please re-enter the amount of questions.\n')
     return False
+
+#Function: startGame
+#Purpose: To run the application/quiz game
+#Function parameters: user_input_val - A counter value
+#                     mode - to select katakana or hiragana mode
+#Return statements:   None/void
+def startGame(user_input_val, user_mode_select, mode = 0):
+    mode_select = 'hiragana_mode'
+    dictionary_mode = jap_hiragana_dict
+    if mode == 2:
+        mode_select = 'katakana_mode'
+    #print(random.choice(user_mode_select[mode_select]))
+    while user_input_val > 0:    
+        randomChoice_charRow = random.randint(0, len(user_mode_select)-1)
+        keys_list = list(dictionary_mode.keys())
+        chosen_key = keys_list[randomChoice_charRow]
+        dict_mode = jap_hiragana_dict[chosen_key]
+        r = list(dict_mode.items())
+        key,value = r[0]
+        user_input_val -= 1
+
+#Function: setUserInput
+#Purpose: Based on the user_input, return the value. Its a setter function
+#Function parameters: user_input_val - a variable that will check the value by 
+#                                       using equal operator
+#Return Statement: Integer
+def setUserInput(user_input_val):
+    if user_input_val == '1':
+        return 5
+    elif user_input_val == '2':
+        return 10
+    elif user_input_val == '3':
+        return 15
+    elif user_input_val == '4':
+        return 20
+
 def hiragana_mode():
     print('Selected Hiragana...')
     print('Enter which rows to be added along to the quiz!')
@@ -168,10 +208,16 @@ def hiragana_mode():
         print('Select the amount of questions.\n1)\t5\n2)\t10\n3)\t15\n4)\t20\n5)\tCustom')
         user_input = input('')
         if(userSelect_amnt(user_input)):
+            user_input = setUserInput(user_input)
             flag = True
-    
     print('\n')
-
+        
+    #if we pass the input statements, store the length towards the user Input
+    #then start game.
+    user_select_length = int(user_input)
+    startGame(user_select_length, user_mode_select, mode=1)
+    
+    
 
 def katakana_mode():
     pass
