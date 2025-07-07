@@ -166,12 +166,27 @@ def startGame(user_input_val, user_mode_select, mode = 0):
         mode_select = 'katakana_mode'
     #print(random.choice(user_mode_select[mode_select]))
     while user_input_val > 0:    
+        #Based on user select, randomize
         randomChoice_charRow = random.randint(0, len(user_mode_select)-1)
+        #Convert the dictionary keys to a list
         keys_list = list(dictionary_mode.keys())
+        #Get the index value
         chosen_key = keys_list[randomChoice_charRow]
+        #Based on the index value (word), you can access that row
         dict_mode = jap_hiragana_dict[chosen_key]
+        #Convert that row specifically 
         r = list(dict_mode.items())
-        key,value = r[0]
+        
+        randomChoice_char = random.randint(0, len(r)-1)
+        key, value = r[randomChoice_char]
+        #print(key)
+        #print(value)
+        userchar_input = input('what is this character {}: '.format(key))
+        userchar_input = userchar_input.lower()
+        if userchar_input == value:
+            print('correct!')
+        else:
+            print('incorrect')
         user_input_val -= 1
 
 #Function: setUserInput
