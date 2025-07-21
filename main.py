@@ -176,11 +176,12 @@ def startGame(user_input_val, user_mode_select, mode = 0):
         dict_mode = jap_hiragana_dict[chosen_key]
         #Convert that row specifically 
         r = list(dict_mode.items())
-        
+        print(r)
         randomChoice_char = random.randint(0, len(r)-1)
+        print(randomChoice_char)
         key, value = r[randomChoice_char]
-        #print(key)
-        #print(value)
+        print(key)
+        print(value)
         userchar_input = input('what is this character {}: '.format(key))
         userchar_input = userchar_input.lower()
         if userchar_input == value:
@@ -195,14 +196,13 @@ def startGame(user_input_val, user_mode_select, mode = 0):
 #                                       using equal operator
 #Return Statement: Integer
 def setUserInput(user_input_val):
-    if user_input_val == '1':
-        return 5
-    elif user_input_val == '2':
-        return 10
-    elif user_input_val == '3':
-        return 15
-    elif user_input_val == '4':
-        return 20
+    options={
+        '1': 5,
+        '2': 10,
+        '3': 15,
+        '4': 20
+    }
+    return options.get(user_input_val)
 
 def hiragana_mode():
     print('Selected Hiragana...')
